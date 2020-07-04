@@ -1,6 +1,28 @@
 import 'package:flutter/material.dart';
 
-class TasksScreen extends StatelessWidget {
+import '../task.dart';
+
+class TasksScreen extends StatefulWidget {
+  @override
+  _TasksScreenState createState() => _TasksScreenState();
+}
+
+class _TasksScreenState extends State<TasksScreen> {
+  List<Task> taskList = [
+    Task(title: 'Buy milk'),
+    Task(title: 'Buy eggs'),
+    Task(title: 'Buy detergent'),
+    Task(title: 'Buy milk'),
+    Task(title: 'Buy eggs'),
+    Task(title: 'Buy detergent'),
+    Task(title: 'Buy milk'),
+    Task(title: 'Buy eggs'),
+    Task(title: 'Buy detergent'),
+    Task(title: 'Buy milk'),
+    Task(title: 'Buy eggs'),
+    Task(title: 'Buy detergent'),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +61,7 @@ class TasksScreen extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '12 Tasks',
+                  '${taskList.length} Tasks',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 18.0,
@@ -50,12 +72,36 @@ class TasksScreen extends StatelessWidget {
           ),
           Expanded(
             child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20.0),
                   topRight: Radius.circular(20.0),
                 ),
+              ),
+              child: ListView.builder(
+                itemCount: taskList.length,
+                itemBuilder: (_, index) {
+                  return CheckboxListTile(
+                    title: Text(
+                      taskList[index].title,
+                      style: TextStyle(
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.w500,
+                        decoration: taskList[index].isCompleted
+                            ? TextDecoration.lineThrough
+                            : null,
+                      ),
+                    ),
+                    value: taskList[index].isCompleted,
+                    onChanged: (value) {
+                      setState(() {
+                        taskList[index].isCompleted = value;
+                      });
+                    },
+                  );
+                },
               ),
             ),
           ),
@@ -64,6 +110,7 @@ class TasksScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.blueAccent,
         child: Icon(Icons.add),
+        onPressed: () {},
       ),
     );
   }
