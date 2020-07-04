@@ -5,6 +5,9 @@ import '../task.dart';
 // screens
 import 'add_task_screen.dart';
 
+// widgets
+import '../widgets/task_tile.dart';
+
 class TasksScreen extends StatefulWidget {
   @override
   _TasksScreenState createState() => _TasksScreenState();
@@ -86,21 +89,12 @@ class _TasksScreenState extends State<TasksScreen> {
               child: ListView.builder(
                 itemCount: taskList.length,
                 itemBuilder: (_, index) {
-                  return CheckboxListTile(
-                    title: Text(
-                      taskList[index].title,
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.w500,
-                        decoration: taskList[index].isCompleted
-                            ? TextDecoration.lineThrough
-                            : null,
-                      ),
-                    ),
-                    value: taskList[index].isCompleted,
-                    onChanged: (value) {
+                  return TaskTile(
+                    taskList: taskList,
+                    index: index,
+                    checkBoxCallback: (bool checkboxState) {
                       setState(() {
-                        taskList[index].isCompleted = value;
+                        taskList[index].isCompleted = checkboxState;
                       });
                     },
                   );
