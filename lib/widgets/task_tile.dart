@@ -13,19 +13,18 @@ class TaskTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<TaskData>(
       builder: (context, taskData, child) {
+        final task = taskData.getTask(index);
         return CheckboxListTile(
           title: Text(
-            taskData.taskList[index].title,
+            task.title,
             style: TextStyle(
               fontSize: 18.0,
               fontWeight: FontWeight.w500,
-              decoration: taskData.taskList[index].isCompleted
-                  ? TextDecoration.lineThrough
-                  : null,
+              decoration: task.isCompleted ? TextDecoration.lineThrough : null,
             ),
           ),
           activeColor: Colors.lightBlueAccent,
-          value: taskData.taskList[index].isCompleted,
+          value: task.isCompleted,
           onChanged: (isChecked) {
             taskData.toggleTaskProgress(index, isChecked);
           },
