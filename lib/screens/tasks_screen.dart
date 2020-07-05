@@ -102,8 +102,8 @@ class _TasksScreenState extends State<TasksScreen> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.blueAccent,
         child: Icon(Icons.add),
-        onPressed: () {
-          showModalBottomSheet(
+        onPressed: () async {
+          String taskTitle = await showModalBottomSheet<String>(
             context: context,
             builder: (context) => AddTaskScreen(),
             shape: RoundedRectangleBorder(
@@ -112,6 +112,12 @@ class _TasksScreenState extends State<TasksScreen> {
               ),
             ),
           );
+
+          if (taskTitle != null) {
+            setState(() {
+              taskList.add(Task(title: taskTitle));
+            });
+          }
         },
       ),
     );
