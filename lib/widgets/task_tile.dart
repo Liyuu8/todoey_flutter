@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../task.dart';
+// modals
+import '../modals/task.dart';
 
 class TaskTile extends StatelessWidget {
   final List<Task> taskList;

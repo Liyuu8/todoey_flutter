@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../task.dart';
+// modals
+import '../modals/task.dart';
 
 // screens
 import 'add_task_screen.dart';
 
 // widgets
-import '../widgets/task_tile.dart';
+import '../widgets/tasks_list.dart';
 
 class TasksScreen extends StatefulWidget {
   @override
@@ -86,18 +87,12 @@ class _TasksScreenState extends State<TasksScreen> {
                   topRight: Radius.circular(20.0),
                 ),
               ),
-              child: ListView.builder(
-                itemCount: taskList.length,
-                itemBuilder: (_, index) {
-                  return TaskTile(
-                    taskList: taskList,
-                    index: index,
-                    checkBoxCallback: (bool checkboxState) {
-                      setState(() {
-                        taskList[index].isCompleted = checkboxState;
-                      });
-                    },
-                  );
+              child: TasksList(
+                taskList: taskList,
+                checkBoxCallback: (int index, bool checkboxState) {
+                  setState(() {
+                    taskList[index].isCompleted = checkboxState;
+                  });
                 },
               ),
             ),
