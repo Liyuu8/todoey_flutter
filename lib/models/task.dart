@@ -3,8 +3,4 @@ class Task {
   bool isCompleted;
 
   Task({this.title, this.isCompleted = false});
-
-  void toggleDone() {
-    isCompleted = !isCompleted;
-  }
 }

@@ -1,30 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-// modals
-import '../modals/task.dart';
+// models
+import '../models/task_data.dart';
 
 class TaskTile extends StatelessWidget {
-  final List<Task> taskList;
   final int index;
-  final Function checkBoxCallback;
 
-  TaskTile({this.taskList, this.index, this.checkBoxCallback});
+  TaskTile({this.index});
 
   @override
   Widget build(BuildContext context) {
-    return CheckboxListTile(
-      title: Text(
-        taskList[index].title,
-        style: TextStyle(
-          fontSize: 18.0,
-          fontWeight: FontWeight.w500,
-          decoration:
-              taskList[index].isCompleted ? TextDecoration.lineThrough : null,
-        ),
-      ),
-      activeColor: Colors.lightBlueAccent,
-      value: taskList[index].isCompleted,
-      onChanged: checkBoxCallback,
+    return Consumer<TaskData>(
+      builder: (context, taskData, child) {
+        return CheckboxListTile(
+          title: Text(
+            taskData.taskList[index].title,
+            style: TextStyle(
+              fontSize: 18.0,
+              fontWeight: FontWeight.w500,
+              decoration: taskData.taskList[index].isCompleted
+                  ? TextDecoration.lineThrough
+                  : null,
+            ),
+          ),
+          activeColor: Colors.lightBlueAccent,
+          value: taskData.taskList[index].isCompleted,
+          onChanged: (isChecked) {
+            taskData.toggleTaskProgress(index, isChecked);
+          },
+        );
+      },
     );
   }
 }
