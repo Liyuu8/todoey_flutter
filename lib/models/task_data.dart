@@ -41,4 +41,9 @@ class TaskData extends ChangeNotifier {
     _taskList[index].isCompleted = isCompleted;
     notifyListeners();
   }
+
+  void deleteTask(int index) {
+    _taskList.removeAt(index);
+    notifyListeners();
+  }
 }
